@@ -30,6 +30,13 @@ export const routes: Routes = [
         ],
       },
 
+      {
+        path: 'reports',
+        children: [
+          { path: '', loadComponent: () => import('./components/report-generator/report-generator').then(m => m.ReportGenerator) },
+          { path: ':type', loadComponent: () => import('./components/report-generator/report-generator').then(m => m.ReportGenerator) },
+        ],
+      },
     ],
   },
 ];

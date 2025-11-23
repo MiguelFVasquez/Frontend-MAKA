@@ -1,0 +1,150 @@
+<div class="report-generator-container">
+    <div class="page-header">
+    <div class="header-content">
+        <button class="back-btn" (click)="goBack()">
+        ← Volver
+        </button>
+        <div>
+        <h1 class="page-title">{{ reportConfig?.title }}</h1>
+        <p class="page-subtitle">{{ reportConfig?.description }}</p>
+        </div>
+    </div>
+    </div>
+
+    <div class="generator-grid">
+    <!-- Formulario de configuración -->
+    <div class="card config-card">
+        <h3 class="card-title">Configuración del Reporte</h3>
+        
+        <form [formGroup]="form" class="report-form">
+        <div *ngFor="let field of reportConfig?.fields" class="form-group">
+            <label>
+            {{ field.label }}
+            <span class="required" *ngIf="field.required">*</span>
+            </label>
+
+            <!-- Campo de fecha -->
+            <input 
+            *ngIf="field.type === 'date'"
+            type="date"
+            [formControlName]="field.name"
+            />
+
+            <!-- Campo select -->
+            <select 
+            *ngIf="field.type === 'select'"
+            [formControlName]="field.name"
+            >
+            <option value="">Seleccione una opción</option>
+            <option 
+                *ngFor="let opt of field.options" 
+                [value]="opt.value"
+            >
+                {{ opt.label }}
+            </option>
+            </select>
+
+            <!-- Campo checkbox -->
+            <label 
+            *ngIf="field.type === 'checkbox'" 
+            class="checkbox-label"
+            >
+            <input 
+                type="checkbox"
+                [formControlName]="field.name"
+            />
+            <span>{{ field.label }}</span>
+            </label>
+
+            <!-- Campo de texto -->
+            <input 
+            *ngIf="field.type === 'text'"
+            type="text"
+            [formControlName]="field.name"
+            placeholder="Ingrese {{ field.label.toLowerCase() }}"
+            />
+        </div>
+
+        <!-- Opciones de formato -->
+        <div class="form-section">
+            <h4 class="section-subtitle">Formato de Salida</h4>
+            
+            <div class="format-options">
+            <label class="radio-option">
+                <input 
+                type="radio" 
+                formControlName="format" 
+                value="pdf"
+                />
+                <span class="radio-content">
+                <span class="radio-icon">📄</span>
+                <span class="radio-label">PDF</span>
+                </span>
+            </label>
+
+            <label class="radio-option">
+                <input 
+                type="radio" 
+                formControlName="format" 
+                value="excel"
+                />
+                <span class="radio-content">
+                <span class="radio-icon">📊</span>
+                <span class="radio-label">Excel</span>
+                </span>
+            </label>
+            </div>
+        </div>
+
+        <button 
+            type="button"
+            class="btn btn-primary btn-full"
+            (click)="generateReport()"
+            [disabled]="form.invalid || isGenerating"
+        >
+            <span *ngIf="!isGenerating">🚀 Generar Reporte</span>
+            <span *ngIf="isGenerating">⏳ Generando...</span>
+        </button>
+        </form>
+    </div>
+
+    <!-- Vista previa / Info -->
+    <div class="preview-section">
+        <div class="card preview-card">
+        <h3 class="card-title">Vista Previa</h3>
+        
+        <div class="preview-content">
+            <div class="preview-item">
+            <span class="preview-label">Tipo de reporte:</span>
+            <strong>{{ reportConfig?.title }}</strong>
+            </div>
+
+            <div class="preview-item" *ngIf="form.value.dateFrom">
+            <span class="preview-label">Fecha desde:</span>
+            <strong>{{ form.value.dateFrom | date: 'dd/MM/yyyy' }}</strong>
+            </div>
+
+            <div class="preview-item" *ngIf="form.value.dateTo">
+            <span class="preview-label">Fecha hasta:</span>
+            <strong>{{ form.value.dateTo | date: 'dd/MM/yyyy' }}</strong>
+            </div>
+
+            <div class="preview-item">
+            <span class="preview-label">Formato:</span>
+            <strong>{{ form.value.format === 'pdf' ? 'PDF' : 'Excel' }}</strong>
+            </div>
+        </div>
+        </div>
+
+        <div class="card tips-card">
+        <h3 class="card-title">💡 Consejos</h3>
+        <ul class="tips-list">
+            <li>Los reportes en PDF son ideales para presentaciones</li>
+            <li>Los reportes en Excel permiten análisis adicionales</li>
+            <li>Puedes filtrar por fechas para períodos específicos</li>
+            <li>Los reportes se descargan automáticamente</li>
+        </ul>
+        </div>
+    </div>
+    </div>
+</div>

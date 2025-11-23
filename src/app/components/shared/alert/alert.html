@@ -1,0 +1,27 @@
+<div class="alerts-container">
+  @for (alert of alertService.alertsList(); track alert.id) {
+    <div 
+      class="alert alert-{{alert.type}}"
+      [class.alert-auto-close]="alert.autoClose"
+    >
+      <div class="alert-icon">
+        {{ getIcon(alert.type) }}
+      </div>
+      
+      <div class="alert-content">
+        <div class="alert-title">{{ alert.title }}</div>
+        @if (alert.message) {
+          <div class="alert-message">{{ alert.message }}</div>
+        }
+      </div>
+
+      <button 
+        class="alert-close" 
+        (click)="closeAlert(alert.id!)"
+        aria-label="Cerrar alerta"
+      >
+        &times;
+      </button>
+    </div>
+  }
+</div>

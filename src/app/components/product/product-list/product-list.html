@@ -5,52 +5,87 @@
   </div>
 
   <div class="toolbar">
-    <input 
-      [formControl]="q" 
-      placeholder="Buscar por nombre o referencia..."
-      class="search-input"
-    />
-    <a class="btn btn-primary" routerLink="/products/new">
-      <span>+ Nuevo Producto</span>
-    </a>
+    <div class="search-group">
+      <input 
+        [formControl]="searchControl" 
+        placeholder="Buscar por nombre o referencia..."
+        class="search-input"
+      />
+    </div>
+
+    <div class="filter-group">
+      <select 
+        [formControl]="statusFilter" 
+        class="status-filter"
+      >
+        <option value="">Todos los estados</option>
+        <option value="ACTIVO">Activos</option>
+        <option value="INACTIVO">Inactivos</option>
+        <option value="REPOSICION">Reposición</option>
+      </select>
+
+      <a class="btn btn-primary" routerLink="/products/new">
+        <span>+ Nuevo Producto</span>
+      </a>
+    </div>
   </div>
 
-  <div class="card">
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Cargando productos...</p>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="errorMessage" class="error-state">
+    <p>❌ {{ errorMessage }}</p>
+    <button class="btn btn-outline" (click)="loadProducts()">
+      Reintentar
+    </button>
+  </div>
+
+  <!-- Products table -->
+  <div *ngIf="!isLoading && !errorMessage" class="card">
     <table class="table">
       <thead>
         <tr>
           <th>Nombre</th>
           <th>Referencia</th>
           <th>Stock</th>
-          <th>Precio</th>
+          <th>Precio Venta</th>
           <th>Estado</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of products">
+        <tr *ngFor="let p of filteredProducts">
           <td>
             <div class="product-name">
               <strong>{{ p.name }}</strong>
-              @if (p.description) {
-                <span class="product-desc">
-                  {{ p.description }}
-                </span>
-              }
+              <span class="product-desc" *ngIf="p.description">
+                {{ p.description }}
+              </span>
             </div>
           </td>
           <td>{{ p.reference || '-' }}</td>
           <td>
             <span 
-              [class.stock-low]="p.stock < (p.stock_minimo || 10)"
-              [class.stock-ok]="p.stock >= (p.stock_minimo || 10)"
+              [class.stock-low]="p.stock < p.stock_minimo"
+              [class.stock-ok]="p.stock >= p.stock_minimo"
             >
               {{ p.stock }}
             </span>
           </td>
-          <td>{{ p.sale_price | currency }}</td>
+          <td>{{ p.sale_price | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
           <td>
-            <span class="badge badge-accent">{{ p.status || 'Activo' }}</span>
+            <span 
+              class="badge"
+              [class.badge-success]="p.status.status === 'ACTIVO'"
+              [class.badge-warning]="p.status.status === 'INACTIVO'"
+              [class.badge-accent]="p.status.status === 'REPOSICION'"
+            >
+              {{ p.status.status }}
+            </span>
           </td>
           <td>
             <a 
@@ -61,19 +96,27 @@
             </a>
           </td>
         </tr>
-        @if (products.length === 0) {
-          <tr>
-            <td colspan="6" class="empty-state">
-              <div>
-                <p>No hay productos registrados</p>
-                <a routerLink="/products/new" class="btn btn-outline">
-                  Crear primer producto
-                </a>
-              </div>
-            </td>
-          </tr>
-        }
+        <tr *ngIf="filteredProducts.length === 0">
+          <td colspan="6" class="empty-state">
+            <div>
+              <p>{{ getEmptyMessage() }}</p>
+              <a routerLink="/products/new" class="btn btn-outline">
+                Crear primer producto
+              </a>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
+
+    <!-- Stats -->
+    <div class="stats-footer">
+      <span class="stat-item">
+        Total: <strong>{{ products.length }}</strong>
+      </span>
+      <span class="stat-item" *ngIf="searchControl.value || statusFilter.value">
+        Mostrando: <strong>{{ filteredProducts.length }}</strong>
+      </span>
+    </div>
   </div>
 </div>

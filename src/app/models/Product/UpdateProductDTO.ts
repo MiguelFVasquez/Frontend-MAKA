@@ -1,4 +1,4 @@
-export interface UpdateProductoDTO {
+export interface UpdateProductDTO {
     newName: string;
     newDescription: string;
     newSalePrice: number;

@@ -1,0 +1,37 @@
+.sidebar{
+    width:220px;
+    padding:1rem;
+    border-right:1px solid rgba(0,0,0,0.04);
+    background: transparent;
+}
+
+.sidebar .menu{
+    display:flex;
+    flex-direction:column;
+    gap:0.35rem;
+}
+
+.sidebar .menu a{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    color:#222;
+    padding:0.5rem;
+    border-radius:6px;
+    text-decoration:none;
+}
+
+.sidebar .menu a .icon{ color: rgba(0,0,0,0.45) }
+
+.sidebar .menu a.active{
+    border-left: 4px solid #800080;
+    padding-left:0.4rem;
+    background: rgba(153,102,153,0.03);
+}
+
+.sidebar .menu a:hover{ background: rgba(128,0,128,0.03) }
+
+@media (max-width: 900px){
+    .sidebar{ width:100%; border-right:none; border-bottom:1px solid rgba(0,0,0,0.04) }
+    .sidebar .menu{ flex-direction:row; overflow:auto }
+}

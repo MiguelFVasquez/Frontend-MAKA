@@ -1,1 +1,36 @@
-<p>product-form works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+    <label>Nombre</label>
+    <input formControlName="name" />
+    <div *ngIf="form.controls.name.invalid && form.controls.name.touched" class="error">Nombre requerido</div>
+    </div>
+    <div>
+    <label>Descripcion</label>
+    <textarea formControlName="description"></textarea>
+    </div>
+    <div>
+    <label>Referencia</label>
+    <input formControlName="reference" />
+    </div>
+    <div>
+    <label>Stock</label>
+    <input type="number" formControlName="stock" />
+    </div>
+    <div>
+    <label>Precio venta</label>
+    <input type="number" formControlName="salePrice" step="0.01" />
+    </div>
+    <div>
+    <label>Precio compra</label>
+    <input type="number" formControlName="buyPrice" step="0.01" />
+    </div>
+    <div>
+    <label>Stock minimo</label>
+    <input type="number" formControlName="stockMinimo" />
+    </div>
+
+    <div class="actions">
+    <button type="submit" [disabled]="form.invalid">Guardar</button>
+    <button type="button" (click)="cancel()">Cancelar</button>
+    </div>
+</form>

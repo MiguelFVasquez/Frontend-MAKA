@@ -1,1 +1,24 @@
-<p>product-list works!</p>
+<section>
+    <div class="toolbar">
+    <input [formControl]="q" placeholder="Buscar por nombre o referencia" />
+    <a class="btn" routerLink="/products/new">Nuevo producto</a>
+    </div>
+
+    <table class="table">
+    <thead>
+        <tr><th>Nombre</th><th>Referencia</th><th>Stock</th><th>Precio</th><th>Estado</th><th></th></tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of products">
+        <td>{{p.name}}</td>
+        <td>{{p.reference}}</td>
+        <td>{{p.stock}}</td>
+        <td>{{p.sale_price | currency}}</td>
+        <td>{{p.status}}</td>
+        <td>
+            <a [routerLink]="['/products', p.id]">Editar</a>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+</section>

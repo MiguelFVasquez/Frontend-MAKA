@@ -1,0 +1,87 @@
+.root{
+    --accent: #800080;
+    --accent-2: #996699;
+    --muted: #6d6d6d;
+    --surface: #f8f8fb;
+}
+
+.app-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem 1.25rem;
+    gap:1rem;
+    background: var(--surface);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.app-header .brand{
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+}
+
+.app-header .brand .logo{
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    color: var(--accent);
+    font-weight:700;
+    border: 2px solid rgba(128,0,128,0.12);
+}
+
+nav{
+    display:flex;
+    gap:0.75rem;
+    align-items:center;
+}
+
+nav a{ 
+    color: #222;
+    text-decoration:none;
+    padding:0.35rem 0.6rem;
+    border-radius:6px;
+    font-size:0.95rem;
+}
+
+nav a:hover{
+    color: var(--accent);
+    outline: 2px solid rgba(128,0,128,0.08);
+}
+
+.actions{ display:flex; gap:0.5rem; align-items:center }
+
+.btn-ghost{
+    background:transparent;
+    border:1px solid rgba(0,0,0,0.08);
+    padding:0.45rem 0.6rem;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.btn-ghost:focus{ box-shadow:0 0 0 4px rgba(128,0,128,0.06) }
+
+.btn-outline-accent{
+    background:transparent;
+    color:var(--accent);
+    border:2px solid var(--accent);
+    padding:0.38rem 0.6rem;
+    border-radius:6px;
+}
+
+.status-pill{
+    font-size:0.75rem;
+    padding:0.2rem 0.45rem;
+    border-radius:999px;
+    color: var(--accent);
+    border:1px solid rgba(128,0,128,0.16);
+}
+
+@media (max-width: 768px){
+    .app-header{ padding:0.6rem }
+    nav{ display:none }
+    .app-header .brand .logo{ width:36px; height:36px }
+}

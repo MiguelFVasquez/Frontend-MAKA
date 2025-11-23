@@ -1,0 +1,30 @@
+
+:root{ --accent:#800080; --muted:#666 }
+
+.product-form{
+	background:#fff;
+	padding:1rem;
+	border-radius:8px;
+	border:1px solid rgba(0,0,0,0.04);
+	max-width:760px;
+}
+
+.product-form label{ display:block; margin-bottom:0.3rem; color:#222 }
+.product-form input, .product-form select, .product-form textarea{
+	width:100%; padding:0.5rem 0.6rem; border-radius:6px; border:1px solid rgba(0,0,0,0.08);
+}
+
+.product-form input:focus, .product-form textarea:focus{
+	outline:none; box-shadow:0 0 0 4px rgba(128,0,128,0.06); border-color:var(--accent)
+}
+
+.product-form .row{ display:flex; gap:0.7rem; margin-bottom:0.75rem }
+.product-form .row .col{ flex:1 }
+
+.product-form .actions{ display:flex; gap:0.6rem }
+.product-form .actions .btn-primary{ border:2px solid var(--accent); color:var(--accent); background:transparent; padding:0.45rem 0.7rem; border-radius:6px }
+
+@media (max-width: 700px){
+	.product-form .row{ flex-direction:column }
+}
+

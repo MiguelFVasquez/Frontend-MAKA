@@ -67,7 +67,16 @@ export class Product {
       .put<ApiResponse<ProductResponse>>(`${this.apiUrl}/update`, productData)
       .pipe(map(response => response.respuesta));
   }
-
+  /**
+   * Método para eliminar un producto por su ID
+   * @param id 
+   * @returns 
+   */
+  deleteProduct(id: number): Observable<ProductResponse> {
+    return this.http
+      .delete<ApiResponse<ProductResponse>>(`${this.apiUrl}/delete/${id}`)
+      .pipe(map(response => response.respuesta));
+  }
 
   /**
    * Busca productos por nombre o referencia (filtrado local)

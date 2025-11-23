@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProductResponse } from '../../../models/Product/ProductResponse';
 import { Product } from '../../../services/product';
+import { AlertService } from '../../../services/alert-service';
+import { ModalService } from '../../../services/modal-service';
 
 
 @Component({
@@ -18,6 +20,9 @@ import { Product } from '../../../services/product';
 export class ProductList implements OnInit {
 
   private productService = inject(Product);
+  private alertService = inject(AlertService);
+  private modalService = inject(ModalService);
+
 
   products: ProductResponse[] = [];
   filteredProducts: ProductResponse[] = [];
@@ -27,6 +32,7 @@ export class ProductList implements OnInit {
   
   isLoading = false;
   errorMessage = '';
+  deletingProductId: number | null = null;
 
   ngOnInit() {
     this.loadProducts();
@@ -105,6 +111,36 @@ export class ProductList implements OnInit {
   applyFilters() {
     const searchTerm = this.searchControl.value || '';
     this.filteredProducts = this.productService.searchProducts(this.products, searchTerm);
+  }
+  async deleteProduct(product: ProductResponse) {
+    const confirmed = await this.modalService.confirm(
+      'Eliminar Producto',
+      `¿Estás seguro de que quieres eliminar el producto "${product.name}"? Esta acción no se puede deshacer.`,
+      'Eliminar',
+      'Cancelar'
+    );
+
+    if (!confirmed) return;
+
+    this.deletingProductId = product.id;
+    this.productService.deleteProduct(product.id).subscribe({
+      next: (response) => {
+        this.deletingProductId = null;
+        this.alertService.success(
+          'Producto eliminado', 
+          `"${response.name}" ha sido eliminado exitosamente.`
+        );
+        this.loadProducts(); // Recargar la lista
+      },
+      error: (error) => {
+        this.deletingProductId = null;
+        console.error('Error eliminando producto:', error);
+        this.alertService.error(
+          'Error al eliminar producto', 
+          error.message || 'Ha ocurrido un error inesperado. Intenta nuevamente.'
+        );
+      }
+    });
   }
 
   /**

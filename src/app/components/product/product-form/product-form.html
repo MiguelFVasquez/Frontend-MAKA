@@ -112,6 +112,15 @@
 
       <div class="form-actions">
         <button 
+          type="button" 
+          class="btn btn-ghost"
+          (click)="cancel()"
+          [disabled]="isLoading"
+        >
+          Cancelar
+        </button>
+        
+        <button 
           type="submit" 
           class="btn btn-primary"
           [disabled]="form.invalid || isLoading"
@@ -121,14 +130,6 @@
           } @else {
             <span>{{ isEditMode ? 'Actualizar' : 'Guardar' }} Producto</span>
           }
-        </button>
-        <button 
-          type="button" 
-          class="btn btn-ghost"
-          (click)="cancel()"
-          [disabled]="isLoading"
-        >
-          Cancelar
         </button>
       </div>
     </form>

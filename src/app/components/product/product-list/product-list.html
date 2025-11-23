@@ -54,7 +54,7 @@
           <th>Stock</th>
           <th>Precio Venta</th>
           <th>Estado</th>
-          <th></th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -88,12 +88,22 @@
             </span>
           </td>
           <td>
-            <a 
-              [routerLink]="['/products', p.id]" 
-              class="btn-ghost btn-sm"
-            >
-              Editar
-            </a>
+            <div class="action-buttons">
+              <a 
+                [routerLink]="['/products', p.id]" 
+                class="btn-ghost btn-sm"
+              >
+                Editar
+              </a>
+              <button 
+                class="btn-danger btn-sm"
+                (click)="deleteProduct(p)"
+                [disabled]="deletingProductId === p.id"
+              >
+                <span *ngIf="deletingProductId === p.id">Eliminando...</span>
+                <span *ngIf="deletingProductId !== p.id">Eliminar</span>
+              </button>
+            </div>
           </td>
         </tr>
         <tr *ngIf="filteredProducts.length === 0">

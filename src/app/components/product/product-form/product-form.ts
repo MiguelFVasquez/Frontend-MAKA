@@ -22,7 +22,6 @@ export class ProductForm implements OnInit{
   private productService = inject(Product);
   private alertService = inject(AlertService); 
 
-
   form = this.fb.group({
     name: ['', [Validators.required]],
     description: [''],
@@ -38,7 +37,6 @@ export class ProductForm implements OnInit{
   productId: number | null = null;
   isLoading = false;
   currentProduct: any = null;
-  
   // Método ngOnInit para cargar datos si es modo edición
   ngOnInit() {
    const id = this.route.snapshot.paramMap.get('id');
@@ -96,7 +94,7 @@ export class ProductForm implements OnInit{
       this.createProduct();
     }
   }
-  
+
 private createProduct() {
     const payload: NewProductDTO = {
       name: this.form.value.name!,

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, map } from 'rxjs';
 import { ProductResponse } from '../models/Product/ProductResponse';
 import { NewProductDTO } from '../models/Product/NewProductDTO';
+import { UpdateProductDTO } from '../models/Product/UpdateProductDTO';
 
 
 interface ApiResponse<T> {
@@ -40,19 +41,30 @@ export class Product {
    // Método adicional que podrías necesitar después
   getProductById(id: number): Observable<ProductResponse> {
     return this.http
-      .get<ApiResponse<ProductResponse>>(`${this.apiUrl}/${id}`)
+      .get<ApiResponse<ProductResponse>>(`${this.apiUrl}/getById/${id}`)
       .pipe(map(response => response.respuesta));
   }
 
+  /**
+   * Método para crear un nuevo producto 
+   * @param productData 
+   * @returns 
+   */
   createProduct(productData: NewProductDTO): Observable<ProductResponse> {
     return this.http
       .post<ApiResponse<ProductResponse>>(`${this.apiUrl}/create`, productData)
       .pipe(map(response => response.respuesta));
   }
 
-  updateProduct(id: number, productData: any): Observable<ProductResponse> {
+  /**
+   * Método para actualizar un producto existente
+   * @param id 
+   * @param productData 
+   * @returns 
+   */
+   updateProduct(productData: UpdateProductDTO): Observable<ProductResponse> {
     return this.http
-      .put<ApiResponse<ProductResponse>>(`${this.apiUrl}/${id}`, productData)
+      .put<ApiResponse<ProductResponse>>(`${this.apiUrl}/update`, productData)
       .pipe(map(response => response.respuesta));
   }
 

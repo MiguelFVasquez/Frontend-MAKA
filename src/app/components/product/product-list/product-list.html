@@ -1,24 +1,75 @@
-<section>
-    <div class="toolbar">
-    <input [formControl]="q" placeholder="Buscar por nombre o referencia" />
-    <a class="btn" routerLink="/products/new">Nuevo producto</a>
-    </div>
+<div class="product-list-container">
+  <div class="page-header">
+    <h1 class="page-title">Productos</h1>
+    <p class="page-subtitle">Gestiona tu inventario de productos</p>
+  </div>
 
+  <div class="toolbar">
+    <input 
+      [formControl]="q" 
+      placeholder="Buscar por nombre o referencia..."
+      class="search-input"
+    />
+    <a class="btn btn-primary" routerLink="/products/new">
+      <span>+ Nuevo Producto</span>
+    </a>
+  </div>
+
+  <div class="card">
     <table class="table">
-    <thead>
-        <tr><th>Nombre</th><th>Referencia</th><th>Stock</th><th>Precio</th><th>Estado</th><th></th></tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of products">
-        <td>{{p.name}}</td>
-        <td>{{p.reference}}</td>
-        <td>{{p.stock}}</td>
-        <td>{{p.sale_price | currency}}</td>
-        <td>{{p.status}}</td>
-        <td>
-            <a [routerLink]="['/products', p.id]">Editar</a>
-        </td>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Referencia</th>
+          <th>Stock</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th></th>
         </tr>
-    </tbody>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products">
+          <td>
+            <div class="product-name">
+              <strong>{{ p.name }}</strong>
+              <span class="product-desc" *ngIf="p.description">
+                {{ p.description }}
+              </span>
+            </div>
+          </td>
+          <td>{{ p.reference || '-' }}</td>
+          <td>
+            <span 
+              [class.stock-low]="p.stock < (p.stock_minimo || 10)"
+              [class.stock-ok]="p.stock >= (p.stock_minimo || 10)"
+            >
+              {{ p.stock }}
+            </span>
+          </td>
+          <td>{{ p.sale_price | currency }}</td>
+          <td>
+            <span class="badge badge-accent">{{ p.status || 'Activo' }}</span>
+          </td>
+          <td>
+            <a 
+              [routerLink]="['/products', p.id]" 
+              class="btn-ghost btn-sm"
+            >
+              Editar
+            </a>
+          </td>
+        </tr>
+        <tr *ngIf="products.length === 0">
+          <td colspan="6" class="empty-state">
+            <div>
+              <p>No hay productos registrados</p>
+              <a routerLink="/products/new" class="btn btn-outline">
+                Crear primer producto
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
-</section>
+  </div>
+</div>

@@ -23,6 +23,7 @@ export class ProductForm {
     buyPrice: [0, [Validators.min(0)]],
     stockMinimo: [0, [Validators.min(0)]],
   });
+  isEditMode = false;
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');

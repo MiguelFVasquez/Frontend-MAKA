@@ -1,11 +1,87 @@
-<section>
-      <div class="toolbar">
-        <a class="btn" routerLink="/movements/new">Registrar movimiento</a>
-      </div>
-      <table>
-        <thead><tr><th>Fecha</th><th>Producto</th><th>Tipo</th><th>Cantidad</th></tr></thead>
-        <tbody>
-          <!-- *ngFor sobre movements -->
-        </tbody>
-      </table>
-</section>
+<div class="movement-list-container">
+  <div class="page-header">
+    <h1 class="page-title">Movimientos</h1>
+    <p class="page-subtitle">Historial de entradas y salidas de inventario</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="filter-group">
+      <select class="filter-select">
+        <option value="">Todos los tipos</option>
+        <option value="IN">Entradas</option>
+        <option value="OUT">Salidas</option>
+      </select>
+      <input 
+        type="date" 
+        class="filter-date"
+        placeholder="Fecha"
+      />
+    </div>
+    
+    <div class="action-buttons">
+      <a class="btn btn-outline" routerLink="/movements/in">
+        ↑ Nueva Entrada
+      </a>
+      <a class="btn btn-primary" routerLink="/movements/out">
+        ↓ Nueva Salida
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Fecha y Hora</th>
+          <th>Producto</th>
+          <th>Tipo</th>
+          <th>Cantidad</th>
+          <th>Usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movement of movements">
+          <td>
+            <div class="date-cell">
+              <strong>{{ movement.date_mxove | date: 'dd/MM/yyyy' }}</strong>
+              <span class="time">{{ movement.date_mxove | date: 'HH:mm' }}</span>
+            </div>
+          </td>
+          <td>{{ movement.productName }}</td>
+          <td>
+            <span 
+              class="badge"
+              [class.badge-success]="movement.typeMove === 'IN'"
+              [class.badge-warning]="movement.typeMove === 'OUT'"
+            >
+              {{ movement.typeMove === 'IN' ? '↑ Entrada' : '↓ Salida' }}
+            </span>
+          </td>
+          <td>
+            <span 
+              [class.amount-in]="movement.typeMove === 'IN'"
+              [class.amount-out]="movement.typeMove === 'OUT'"
+            >
+              {{ movement.typeMove === 'IN' ? '+' : '-' }}{{ movement.amount }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="movements.length === 0">
+          <td colspan="5" class="empty-state">
+            <div>
+              <p>No hay movimientos registrados</p>
+              <div class="empty-actions">
+                <a routerLink="/movements/in" class="btn btn-outline">
+                  Registrar entrada
+                </a>
+                <a routerLink="/movements/out" class="btn btn-outline">
+                  Registrar salida
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

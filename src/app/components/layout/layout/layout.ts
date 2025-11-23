@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
-  imports: [Header, SideBar, RouterModule, CommonModule],
+  imports: [Header, SideBar,RouterModule, CommonModule],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })

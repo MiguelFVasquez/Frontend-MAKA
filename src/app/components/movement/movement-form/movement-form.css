@@ -1,42 +1,137 @@
-
-:root{ --accent: #800080; --muted:#6d6d6d }
-
-.movement-form{
-	background: #fff;
-	padding:1rem;
-	border-radius:8px;
-	border:1px solid rgba(0,0,0,0.04);
-	max-width:720px;
+.movement-form-container {
+	max-width: 800px;
 }
 
-.movement-form .row{ display:flex; gap:0.75rem; margin-bottom:0.75rem }
-.movement-form label{ font-size:0.9rem; color:#222; margin-bottom:0.25rem; display:block }
-.movement-form input,
-.movement-form select,
-.movement-form textarea{
-	width:100%;
-	padding:0.5rem 0.6rem;
-	border:1px solid rgba(0,0,0,0.08);
-	border-radius:6px;
+.page-header {
+	margin-bottom: 2rem;
 }
 
-.movement-form input:focus,
-.movement-form textarea:focus,
-.movement-form select:focus{
-	outline: none;
-	box-shadow: 0 0 0 4px rgba(128,0,128,0.06);
-	border-color: var(--accent);
+.page-title {
+	font-size: 1.75rem;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin-bottom: 0.25rem;
 }
 
-.movement-form .actions{ display:flex; gap:0.6rem; margin-top:0.5rem }
-.movement-form .actions .btn{ padding:0.45rem 0.7rem; border-radius:6px; cursor:pointer }
-.movement-form .actions .btn.primary{ color:var(--accent); border:2px solid var(--accent); background:transparent }
-.movement-form .actions .btn.cancel{ border:1px solid rgba(0,0,0,0.08) }
-
-/* helper metadata using accent as small label */
-.movement-form .hint{ font-size:0.82rem; color:var(--muted) }
-
-@media (max-width: 640px){
-	.movement-form .row{ flex-direction:column }
+.page-subtitle {
+	color: var(--text-secondary);
+	font-size: 0.95rem;
 }
 
+.form-card {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	padding: 2rem;
+}
+
+.form-section {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	margin-bottom: 1.5rem;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-group label {
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: var(--text-primary);
+	margin-bottom: 0.4rem;
+}
+
+.required {
+	color: #dc2626;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+	width: 100%;
+	padding: 0.6rem 0.75rem;
+	border: 1px solid var(--border-strong);
+	border-radius: 6px;
+	font-size: 0.95rem;
+}
+
+.form-group textarea {
+	resize: vertical;
+	font-family: inherit;
+}
+
+.movement-preview {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	padding: 1.25rem;
+	margin-bottom: 1.5rem;
+}
+
+.preview-header h3 {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin-bottom: 1rem;
+}
+
+.preview-content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.preview-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 0;
+}
+
+.preview-item.preview-total {
+	border-top: 2px solid var(--border);
+	margin-top: 0.5rem;
+	padding-top: 1rem;
+	font-size: 1.05rem;
+}
+
+.preview-label {
+	color: var(--text-secondary);
+	font-size: 0.95rem;
+}
+
+.amount-in {
+	color: #16a34a;
+}
+
+.amount-out {
+	color: #dc2626;
+}
+
+.form-actions {
+	display: flex;
+	gap: 0.75rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+	.form-card {
+	padding: 1.25rem;
+	}
+
+	.page-title {
+	font-size: 1.5rem;
+	}
+
+	.form-actions {
+	flex-direction: column;
+	}
+
+	.form-actions .btn {
+	width: 100%;
+	}
+}

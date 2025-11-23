@@ -1,38 +1,144 @@
-
-:root{ --accent:#800080; --muted:#666 }
-
-.movement-list{ display:flex; flex-direction:column; gap:0.75rem }
-
-.movement-card{
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-	padding:0.65rem;
-	border-radius:8px;
-	background:#fff;
-	border:1px solid rgba(0,0,0,0.04);
+.movement-list-container {
+max-width: 1200px;
 }
 
-.movement-card .meta{ color:var(--muted); font-size:0.9rem }
-
-.movement-card .actions button{
-	background:transparent;
-	border:1px solid rgba(0,0,0,0.08);
-	padding:0.35rem 0.5rem;
-	border-radius:6px;
-	cursor:pointer;
+.page-header {
+margin-bottom: 2rem;
 }
 
-.movement-card .badge{
-	font-size:0.78rem;
-	padding:0.2rem 0.4rem;
-	border-radius:6px;
-	color: var(--accent);
-	border:1px solid rgba(128,0,128,0.14);
+.page-title {
+font-size: 1.75rem;
+font-weight: 600;
+color: var(--text-primary);
+margin-bottom: 0.25rem;
 }
 
-@media (max-width: 700px){
-	.movement-card{ flex-direction:column; align-items:flex-start }
-	.movement-card .actions{ margin-top:0.5rem }
+.page-subtitle {
+color: var(--text-secondary);
+font-size: 0.95rem;
 }
 
+.toolbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 1rem;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+
+.filter-group {
+display: flex;
+gap: 0.75rem;
+flex: 1;
+max-width: 500px;
+}
+
+.filter-select,
+.filter-date {
+padding: 0.5rem 0.75rem;
+border: 1px solid var(--border-strong);
+border-radius: 6px;
+font-size: 0.95rem;
+}
+
+.filter-select {
+min-width: 180px;
+}
+
+.action-buttons {
+display: flex;
+gap: 0.5rem;
+}
+
+.card {
+background: var(--card);
+border: 1px solid var(--border);
+border-radius: 8px;
+overflow: hidden;
+}
+
+.date-cell {
+display: flex;
+flex-direction: column;
+gap: 0.15rem;
+}
+
+.time {
+font-size: 0.85rem;
+color: var(--text-secondary);
+}
+
+.amount-in {
+color: #16a34a;
+font-weight: 600;
+}
+
+.amount-out {
+color: #dc2626;
+font-weight: 600;
+}
+
+.empty-state {
+text-align: center;
+padding: 3rem 1rem;
+}
+
+.empty-state > div {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1rem;
+}
+
+.empty-state p {
+color: var(--text-secondary);
+margin-bottom: 0.5rem;
+}
+
+.empty-actions {
+display: flex;
+gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+.page-title {
+font-size: 1.5rem;
+}
+
+.toolbar {
+flex-direction: column;
+align-items: stretch;
+}
+
+.filter-group {
+max-width: 100%;
+flex-direction: column;
+}
+
+.action-buttons {
+flex-direction: column;
+}
+
+.action-buttons .btn {
+width: 100%;
+}
+
+.table {
+font-size: 0.875rem;
+}
+
+.table th,
+.table td {
+padding: 0.5rem;
+}
+
+.empty-actions {
+flex-direction: column;
+width: 100%;
+}
+
+.empty-actions .btn {
+width: 100%;
+}
+}

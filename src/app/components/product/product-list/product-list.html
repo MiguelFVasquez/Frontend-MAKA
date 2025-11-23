@@ -32,9 +32,11 @@
           <td>
             <div class="product-name">
               <strong>{{ p.name }}</strong>
-              <span class="product-desc" *ngIf="p.description">
-                {{ p.description }}
-              </span>
+              @if (p.description) {
+                <span class="product-desc">
+                  {{ p.description }}
+                </span>
+              }
             </div>
           </td>
           <td>{{ p.reference || '-' }}</td>
@@ -59,16 +61,18 @@
             </a>
           </td>
         </tr>
-        <tr *ngIf="products.length === 0">
-          <td colspan="6" class="empty-state">
-            <div>
-              <p>No hay productos registrados</p>
-              <a routerLink="/products/new" class="btn btn-outline">
-                Crear primer producto
-              </a>
-            </div>
-          </td>
-        </tr>
+        @if (products.length === 0) {
+          <tr>
+            <td colspan="6" class="empty-state">
+              <div>
+                <p>No hay productos registrados</p>
+                <a routerLink="/products/new" class="btn btn-outline">
+                  Crear primer producto
+                </a>
+              </div>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

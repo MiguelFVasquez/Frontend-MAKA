@@ -66,21 +66,23 @@
             </span>
           </td>
         </tr>
-        <tr *ngIf="movements.length === 0">
-          <td colspan="5" class="empty-state">
-            <div>
-              <p>No hay movimientos registrados</p>
-              <div class="empty-actions">
-                <a routerLink="/movements/in" class="btn btn-outline">
-                  Registrar entrada
-                </a>
-                <a routerLink="/movements/out" class="btn btn-outline">
-                  Registrar salida
-                </a>
+        @if (movements.length === 0) {
+          <tr>
+            <td colspan="5" class="empty-state">
+              <div>
+                <p>No hay movimientos registrados</p>
+                <div class="empty-actions">
+                  <a routerLink="/movements/in" class="btn btn-outline">
+                    Registrar entrada
+                  </a>
+                  <a routerLink="/movements/out" class="btn btn-outline">
+                    Registrar salida
+                  </a>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

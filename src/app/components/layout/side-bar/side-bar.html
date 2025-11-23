@@ -15,7 +15,9 @@
       [title]="isCollapsed() ? 'Productos' : ''"
     >
       <span class="icon">📦</span>
-      <span class="label" *ngIf="!isCollapsed()">Productos</span>
+      @if (!isCollapsed()) {
+        <span class="label">Productos</span>
+      }
     </a>
     
     <a 
@@ -25,7 +27,9 @@
       [title]="isCollapsed() ? 'Movimientos' : ''"
     >
       <span class="icon">📊</span>
-      <span class="label" *ngIf="!isCollapsed()">Movimientos</span>
+      @if (!isCollapsed()) {
+        <span class="label">Movimientos</span>
+      }
     </a>
 
     <a 
@@ -35,7 +39,9 @@
       [title]="isCollapsed() ? 'Reportes' : ''"
     >
       <span class="icon">📄</span>
-      <span class="label" *ngIf="!isCollapsed()">Reportes</span>
+      @if (!isCollapsed()) {
+        <span class="label">Reportes</span>
+      }
     </a>
   </nav>
 </aside>

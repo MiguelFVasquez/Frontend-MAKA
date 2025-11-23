@@ -20,12 +20,11 @@
               {{ p.name }} (Stock: {{ p.stock }})
             </option>
           </select>
-          <div 
-            *ngIf="form.controls.productId.invalid && form.controls.productId.touched"
-            class="error"
-          >
-            Debes seleccionar un producto
-          </div>
+          @if (form.controls.productId.invalid && form.controls.productId.touched) {
+            <div class="error">
+              Debes seleccionar un producto
+            </div>
+          }
         </div>
 
         <div class="form-group">
@@ -42,12 +41,11 @@
               : 'Cantidad de unidades que salen' 
             }}
           </span>
-          <div 
-            *ngIf="form.controls.amount.invalid && form.controls.amount.touched"
-            class="error"
-          >
-            La cantidad debe ser mayor a 0
-          </div>
+          @if (form.controls.amount.invalid && form.controls.amount.touched) {
+            <div class="error">
+              La cantidad debe ser mayor a 0
+            </div>
+          }
         </div>
 
         <div class="form-group">
@@ -60,34 +58,36 @@
         </div>
       </div>
 
-      <div class="movement-preview" *ngIf="selectedProduct">
-        <div class="preview-header">
-          <h3>Resumen del movimiento</h3>
+      @if (selectedProduct) {
+        <div class="movement-preview">
+          <div class="preview-header">
+            <h3>Resumen del movimiento</h3>
+          </div>
+          <div class="preview-content">
+            <div class="preview-item">
+              <span class="preview-label">Producto:</span>
+              <strong>{{ selectedProduct.name }}</strong>
+            </div>
+            <div class="preview-item">
+              <span class="preview-label">Stock actual:</span>
+              <strong>{{ selectedProduct.stock }} unidades</strong>
+            </div>
+            <div class="preview-item">
+              <span class="preview-label">Cantidad del movimiento:</span>
+              <strong 
+                [class.amount-in]="movementType === 'IN'"
+                [class.amount-out]="movementType === 'OUT'"
+              >
+                {{ movementType === 'IN' ? '+' : '-' }}{{ form.value.amount || 0 }}
+              </strong>
+            </div>
+            <div class="preview-item preview-total">
+              <span class="preview-label">Nuevo stock:</span>
+              <strong>{{ calculateNewStock() }} unidades</strong>
+            </div>
+          </div>
         </div>
-        <div class="preview-content">
-          <div class="preview-item">
-            <span class="preview-label">Producto:</span>
-            <strong>{{ selectedProduct.name }}</strong>
-          </div>
-          <div class="preview-item">
-            <span class="preview-label">Stock actual:</span>
-            <strong>{{ selectedProduct.stock }} unidades</strong>
-          </div>
-          <div class="preview-item">
-            <span class="preview-label">Cantidad del movimiento:</span>
-            <strong 
-              [class.amount-in]="movementType === 'IN'"
-              [class.amount-out]="movementType === 'OUT'"
-            >
-              {{ movementType === 'IN' ? '+' : '-' }}{{ form.value.amount || 0 }}
-            </strong>
-          </div>
-          <div class="preview-item preview-total">
-            <span class="preview-label">Nuevo stock:</span>
-            <strong>{{ calculateNewStock() }} unidades</strong>
-          </div>
-        </div>
-      </div>
+      }
 
       <div class="form-actions">
         <button 

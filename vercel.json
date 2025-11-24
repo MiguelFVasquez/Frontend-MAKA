@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "ng build --configuration production",
-  "outputDirectory": "dist/Frontend-Maka",
+  "buildCommand": "ng build --configuration production", 
+  "outputDirectory": "dist/Frontend-Maka/browser",
   "routes": [
     {
       "src": "/(.*)",

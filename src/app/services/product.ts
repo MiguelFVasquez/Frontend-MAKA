@@ -4,6 +4,7 @@ import {Observable, map } from 'rxjs';
 import { ProductResponse } from '../models/Product/ProductResponse';
 import { NewProductDTO } from '../models/Product/NewProductDTO';
 import { UpdateProductDTO } from '../models/Product/UpdateProductDTO';
+import { environment } from '../../environments/environment.prod';
 
 
 interface ApiResponse<T> {
@@ -15,8 +16,7 @@ interface ApiResponse<T> {
   providedIn: 'root',
 })
 export class Product {
-  private apiUrl  = 'http://localhost:8080/api/products'; 
-
+  private apiUrl  = environment.apiUrl + '/products';
   constructor(private http: HttpClient) {}
 
   /**

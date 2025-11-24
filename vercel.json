@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/frontend-maka/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/frontend-maka/$1"
+    }
+  ],
+  "env": {
+    "API_URL": "https://maka-inventario.onrender.com/api"
+  }
+}

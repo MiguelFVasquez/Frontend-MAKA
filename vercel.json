@@ -1,18 +1,11 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/frontend-maka/**/*",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": "ng build --configuration production",
+  "outputDirectory": "dist/Frontend-Maka",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/frontend-maka/$1"
+      "dest": "/index.html"
     }
-  ],
-  "env": {
-    "API_URL": "https://maka-inventario.onrender.com/api"
-  }
+  ]
 }

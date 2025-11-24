@@ -187,13 +187,13 @@
 }
 
 .btn-danger {
-  background: #dc2626;
+  background: #C4003C;
   color: white;
   border: none;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: #b91c1c;
+  background: #ff024e;
 }
 
 .btn-outline {

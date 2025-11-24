@@ -6,16 +6,28 @@
 
   <div class="toolbar">
     <div class="filter-group">
-      <select class="filter-select">
+      <select 
+        [formControl]="typeFilter" 
+        class="filter-select"
+      >
         <option value="">Todos los tipos</option>
         <option value="IN">Entradas</option>
         <option value="OUT">Salidas</option>
       </select>
       <input 
         type="date" 
+        [formControl]="dateFilter"
         class="filter-date"
         placeholder="Fecha"
       />
+      @if (typeFilter.value || dateFilter.value) {
+        <button 
+          class="btn btn-ghost btn-sm" 
+          (click)="clearFilters()"
+        >
+          Limpiar filtros
+        </button>
+      }
     </div>
     
     <div class="action-buttons">
@@ -28,62 +40,112 @@
     </div>
   </div>
 
-  <div class="card">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Fecha y Hora</th>
-          <th>Producto</th>
-          <th>Tipo</th>
-          <th>Cantidad</th>
-          <th>Usuario</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let movement of movements">
-          <td>
-            <div class="date-cell">
-              <strong>{{ movement.date_mxove | date: 'dd/MM/yyyy' }}</strong>
-              <span class="time">{{ movement.date_mxove | date: 'HH:mm' }}</span>
-            </div>
-          </td>
-          <td>{{ movement.productName }}</td>
-          <td>
-            <span 
-              class="badge"
-              [class.badge-success]="movement.typeMove === 'IN'"
-              [class.badge-warning]="movement.typeMove === 'OUT'"
-            >
-              {{ movement.typeMove === 'IN' ? '↑ Entrada' : '↓ Salida' }}
-            </span>
-          </td>
-          <td>
-            <span 
-              [class.amount-in]="movement.typeMove === 'IN'"
-              [class.amount-out]="movement.typeMove === 'OUT'"
-            >
-              {{ movement.typeMove === 'IN' ? '+' : '-' }}{{ movement.amount }}
-            </span>
-          </td>
-        </tr>
-        @if (movements.length === 0) {
+  <!-- Loading state -->
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando movimientos...</p>
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (errorMessage) {
+    <div class="error-state">
+      <p>❌ {{ errorMessage }}</p>
+      <button class="btn btn-outline" (click)="loadMovements()">
+        Reintentar
+      </button>
+    </div>
+  }
+
+  <!-- Movements table -->
+  @if (!isLoading && !errorMessage) {
+    <div class="card">
+      <table class="table">
+        <thead>
           <tr>
-            <td colspan="5" class="empty-state">
-              <div>
-                <p>No hay movimientos registrados</p>
-                <div class="empty-actions">
-                  <a routerLink="/movements/in" class="btn btn-outline">
-                    Registrar entrada
-                  </a>
-                  <a routerLink="/movements/out" class="btn btn-outline">
-                    Registrar salida
-                  </a>
-                </div>
-              </div>
-            </td>
+            <th>Fecha y Hora</th>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Usuario</th>
           </tr>
+        </thead>
+        <tbody>
+          @for (movement of filteredMovements; track movement.id) {
+            <tr>
+              <td>
+                <div class="date-cell">
+                  <strong>{{ movement.date_mxove | date: 'dd/MM/yyyy' }}</strong>
+                  <span class="time">{{ movement.date_mxove | date: 'HH:mm' }}</span>
+                </div>
+              </td>
+              <td>{{ movement.productName }}</td>
+              <td>
+                <span 
+                  class="badge"
+                  [class.badge-success]="movement.typeMove === 'IN'"
+                  [class.badge-warning]="movement.typeMove === 'OUT'"
+                >
+                  {{ movement.typeMove === 'IN' ? '↑ Entrada' : '↓ Salida' }}
+                </span>
+              </td>
+              <td>
+                <span 
+                  [class.amount-in]="movement.typeMove === 'IN'"
+                  [class.amount-out]="movement.typeMove === 'OUT'"
+                >
+                  {{ movement.typeMove === 'IN' ? '+' : '-' }}{{ movement.amount }}
+                </span>
+              </td>
+              <td>{{ movement.user || 'Sistema' }}</td>
+            </tr>
+          }
+          @if (filteredMovements.length === 0) {
+            <tr>
+              <td colspan="5" class="empty-state">
+                <div>
+                  <p>{{ getEmptyMessage() }}</p>
+                  @if (!typeFilter.value && !dateFilter.value) {
+                    <div class="empty-actions">
+                      <a routerLink="/movements/in" class="btn btn-outline">
+                        Registrar entrada
+                      </a>
+                      <a routerLink="/movements/out" class="btn btn-outline">
+                        Registrar salida
+                      </a>
+                    </div>
+                  } @else {
+                    <button class="btn btn-outline" (click)="clearFilters()">
+                      Limpiar filtros
+                    </button>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+    <!-- Stats -->
+    @if (movements.length > 0) {
+      <div class="stats-footer">
+        <span class="stat-item">
+          Total: <strong>{{ movements.length }}</strong>
+        </span>
+        @if (typeFilter.value || dateFilter.value) {
+          <span class="stat-item">
+            Mostrando: <strong>{{ filteredMovements.length }}</strong>
+          </span>
         }
-      </tbody>
-    </table>
-  </div>
+        <span class="stat-item">
+          Entradas: <strong>{{ countMovementsByType('IN') }}</strong>
+        </span>
+        <span class="stat-item">
+          Salidas: <strong>{{ countMovementsByType('OUT') }}</strong>
+        </span>
+      </div>
+    }
+    </div>
+  }
 </div>

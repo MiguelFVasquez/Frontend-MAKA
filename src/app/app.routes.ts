@@ -24,12 +24,11 @@ export const routes: Routes = [
         path: 'movements',
         children: [
           { path: '', loadComponent: () => import('./components/movement/movement-list/movement-list').then(m => m.MovementList) },
-          { path: 'new', loadComponent: () => import('./components/movement/movement-form/movement-form').then(m => m.MovementForm) },
+          // Cambiar estas rutas para que no entren en conflicto
           { path: 'in', loadComponent: () => import('./components/movement/movement-form/movement-form').then(m => m.MovementForm) },
           { path: 'out', loadComponent: () => import('./components/movement/movement-form/movement-form').then(m => m.MovementForm) },
         ],
       },
-
       {
         path: 'reports',
         children: [

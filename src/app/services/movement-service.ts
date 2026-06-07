@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NewMovementDTO } from '../models/Movement/NewMovementDTO';
 import { ApiMovementResponse, MovementResponse } from '../models/Movement/MovementRespone';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovementService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/movement';
+  private apiUrl = environment.apiUrl + '/movement';
 
   /**
    * Obtiene todos los movimientos

@@ -1,92 +1,112 @@
 .app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
 }
 
-.logo {
-    width: 62px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: var(--accent-soft);
-    border: 2px solid rgba(128, 0, 128, 0.12);
-    text-decoration: none;
+.brand-link:hover {
+  opacity: 0.85;
 }
 
-.logo-text {
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1.1rem;
+.brand-logo {
+  background: var(--accent);
+  color: white;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 6px var(--accent-soft);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
 }
 
 .brand-name {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .nav-desktop {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .nav-desktop a {
-    color: var(--text-primary);
-    text-decoration: none;
-    padding: 0.5rem 0.9rem;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .nav-desktop a:hover {
-    background: var(--accent-soft);
-    color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .nav-desktop a.active {
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-weight: 500;
-}
-
-.actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
-    .app-header {
-    padding: 0.75rem 1rem;
-    }
+  .app-header {
+    padding: 0.6rem 1rem;
+  }
 
-    .brand-name {
-    display: none;
-    }
-
-    .nav-desktop {
-    display: none;
-    }
-
-    .logo {
+  .brand-logo {
     width: 36px;
     height: 36px;
-    }
+    font-size: 1.2rem;
+    border-radius: 8px;
+  }
+
+  .brand-name {
+    font-size: 1.1rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.6rem;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
 }

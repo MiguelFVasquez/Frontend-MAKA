@@ -6,7 +6,7 @@
 
     .main-grid {
       display: grid;
-      grid-template-columns: 240px 1fr;
+      grid-template-columns: auto 1fr;
       flex: 1;
     }
 

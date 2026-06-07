@@ -2,9 +2,14 @@
   <button 
     class="toggle-btn" 
     (click)="toggleSidebar()"
+    [attr.aria-expanded]="!isCollapsed()"
     title="{{ isCollapsed() ? 'Expandir' : 'Colapsar' }} menú"
   >
-    <span class="toggle-icon">{{ isCollapsed() ? '→' : '←' }}</span>
+    <div class="hamburger-icon" [class.open]="!isCollapsed()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </button>
 
   <nav class="menu">
@@ -14,7 +19,9 @@
       class="menu-item"
       [title]="isCollapsed() ? 'Productos' : ''"
     >
-      <span class="icon">📦</span>
+      <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+      </span>
       @if (!isCollapsed()) {
         <span class="label">Productos</span>
       }
@@ -26,7 +33,9 @@
       class="menu-item"
       [title]="isCollapsed() ? 'Movimientos' : ''"
     >
-      <span class="icon">📊</span>
+      <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </span>
       @if (!isCollapsed()) {
         <span class="label">Movimientos</span>
       }
@@ -38,7 +47,9 @@
       class="menu-item"
       [title]="isCollapsed() ? 'Reportes' : ''"
     >
-      <span class="icon">📄</span>
+      <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14.5 2 14.5 7.5 20 7.5"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+      </span>
       @if (!isCollapsed()) {
         <span class="label">Reportes</span>
       }

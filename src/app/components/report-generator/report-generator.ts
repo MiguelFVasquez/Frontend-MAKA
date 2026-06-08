@@ -104,36 +104,6 @@ export class ReportGenerator implements OnInit {
         }
       ]
     },
-    'inventory-value': {
-      id: 'inventory-value',
-      title: 'Valoración de Inventario',
-      description: 'Valor total del inventario actual',
-      fields: [
-        {
-          name: 'priceType',
-          label: 'Tipo de precio',
-          type: 'select',
-          required: true,
-          options: [
-            { value: 'buy', label: 'Precio de compra' },
-            { value: 'sale', label: 'Precio de venta' }
-          ]
-        },
-        { name: 'includeCharts', label: 'Incluir gráficos', type: 'checkbox' }
-      ]
-    },
-    'custom': {
-      id: 'custom',
-      title: 'Reporte Personalizado',
-      description: 'Crea un reporte con tus propios criterios',
-      fields: [
-        { name: 'dateFrom', label: 'Fecha desde', type: 'date' },
-        { name: 'dateTo', label: 'Fecha hasta', type: 'date' },
-        { name: 'includeProducts', label: 'Incluir productos', type: 'checkbox' },
-        { name: 'includeMovements', label: 'Incluir movimientos', type: 'checkbox' },
-        { name: 'includeSales', label: 'Incluir ventas', type: 'checkbox' }
-      ]
-    }
   };
 
   ngOnInit() {

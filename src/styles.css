@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* src/styles.css - Estilos globales de la aplicación */
-
+@import '@fortawesome/fontawesome-free/css/all.css';
 :root {
   --accent: #800080;
   --accent-soft: rgba(128, 0, 128, 0.08);

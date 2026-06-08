@@ -15,11 +15,15 @@
 
     @if (!reportConfig) {
         <div class="reports-selection-grid">
-            <div *ngFor="let report of reportTypes | keyvalue" class="card report-type-card" [routerLink]="['/reports', report.key]">
-                <div class="card-icon">📄</div>
-                <h3 class="card-title">{{ (report.value | any).title }}</h3>
-                <p class="card-desc">{{ (report.value | any).description }}</p>
-            </div>
+            @for (report of reportTypes | keyvalue; track report.key) {
+                <div class="card report-type-card" [routerLink]="['/reports', report.key]">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <h3 class="card-title">{{ (report.value).title }}</h3>
+                    <p class="card-desc">{{ (report.value).description }}</p>
+                </div>
+            }
         </div>
     }
 
@@ -30,7 +34,8 @@
             <h3 class="card-title">Configuración del Reporte</h3>
             
                     <form [formGroup]="form" class="report-form">
-                    <div *ngFor="let field of reportConfig.fields" class="form-group">
+                    @for (field of reportConfig.fields; track field.name) {
+                    <div class="form-group">
                             <label>
                             {{ field.label }}
                             @if (field.required) {
@@ -81,6 +86,7 @@
                                 />
                             }
                     </div>
+                    }
 
             <!-- Opciones de formato -->
             <div class="form-section">
@@ -94,7 +100,9 @@
                     value="pdf"
                     />
                     <span class="radio-content">
-                    <span class="radio-icon">📄</span>
+                    <span class="radio-icon">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </span>
                     <span class="radio-label">PDF</span>
                     </span>
                 </label>
@@ -106,7 +114,9 @@
                     value="excel"
                     />
                     <span class="radio-content">
-                    <span class="radio-icon">📊</span>
+                    <span class="radio-icon">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </span>
                     <span class="radio-label">Excel</span>
                     </span>
                 </label>
@@ -120,12 +130,18 @@
                             [disabled]="form.invalid || isGenerating"
                     >
                             @if (!isGenerating) {
-                                <span>🚀 Generar Reporte</span>
+                                <span>
+                                    <i class="fa-solid fa-download" style="display: inline; margin-right: 8px;"></i>
+                                    Generar Reporte
+                                </span>
                             } @else {
-                                <span>⏳ Generando...</span>
+                                <span>
+                                    <i class="fa-solid fa-spinner" style="display: inline; margin-right: 8px; animation: spin 1s linear infinite;"></i>
+                                    Generando...
+                                </span>
                             }
                     </button>
-            </form>
+                    </form>
         </div>
 
         <!-- Vista previa / Info -->

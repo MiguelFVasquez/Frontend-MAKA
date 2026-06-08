@@ -130,6 +130,19 @@
   color: white;
 }
 
+.theme-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+
+.theme-toggle:hover .icon {
+  transform: rotate(15deg) scale(1.1);
+}
+
 @media (max-width: 900px) {
   .sidebar {
     width: 100%;
@@ -176,6 +189,11 @@
     border-radius: 8px;
     background: var(--surface);
     border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .theme-toggle {
+    width: auto;
   }
 
   .menu-item.active {

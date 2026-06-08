@@ -88,10 +88,10 @@
 }
 .readonly-field {
   padding: 8px 12px;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
   border-radius: 4px;
-  color: #6c757d;
+  color: var(--text-secondary);
   font-weight: 500;
   display: flex;
   justify-content: space-between;
@@ -99,7 +99,7 @@
 }
 
 .readonly-badge {
-  background-color: #6c757d;
+  background-color: var(--accent);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;
@@ -109,15 +109,15 @@
 
 .hint {
   font-size: 12px;
-  color: #6c757d;
+  color: var(--muted);
   margin-top: 4px;
   display: block;
 }
 
 /* Estilos para campos deshabilitados */
 input:read-only {
-  background-color: #f8f9fa;
-  color: #6c757d;
+  background-color: var(--surface);
+  color: var(--text-secondary);
   cursor: not-allowed;
 }
 
@@ -131,35 +131,6 @@ input:read-only {
 .action-buttons {
   display: flex;
   gap: 12px;
-}
-
-/* Estilos para campos de solo lectura */
-.readonly-field {
-  padding: 8px 12px;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 4px;
-  color: #6c757d;
-  font-weight: 500;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.readonly-badge {
-  background-color: #6c757d;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: normal;
-}
-
-.hint {
-  font-size: 12px;
-  color: #6c757d;
-  margin-top: 4px;
-  display: block;
 }
 
 /* Estilos para botones */
@@ -177,22 +148,22 @@ input:read-only {
 
 .btn-ghost {
   background: transparent;
-  color: #6b7280;
-  border: 1px solid #d1d5db;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
 }
 
 .btn-ghost:hover:not(:disabled) {
-  background: #f9fafb;
-  color: #374151;
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
 .btn-primary {
-  background: #3b82f6;
+  background: var(--accent);
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--accent-hover);
 }
 
 .btn-danger {

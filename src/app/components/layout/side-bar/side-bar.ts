@@ -1,7 +1,8 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../../services/theme.service';
+import { SidebarService } from '../../../services/sidebar.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -11,14 +12,21 @@ import { ThemeService } from '../../../services/theme.service';
 })
 export class SideBar {
   private themeService = inject(ThemeService);
-  isCollapsed = signal(false);
+  private sidebarService = inject(SidebarService);
+  
+  isCollapsed = this.sidebarService.isCollapsed;
+  isMobileOpen = this.sidebarService.isMobileOpen;
   isDarkMode = this.themeService.isDarkMode;
 
   toggleSidebar() {
-    this.isCollapsed.update(value => !value);
+    this.sidebarService.toggleSidebar();
   }
 
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  closeMobileMenu() {
+    this.sidebarService.closeMobileMenu();
   }
 }

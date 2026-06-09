@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SidebarService } from '../../../services/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -9,5 +10,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.css',
 })
 export class Header {
+  private sidebarService = inject(SidebarService);
 
+  toggleMobileMenu() {
+    this.sidebarService.toggleMobileMenu();
+  }
 }

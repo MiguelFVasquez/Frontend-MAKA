@@ -1,11 +1,11 @@
-interface ReportType {
+export interface ReportType {
   id: string;
   title: string;
   description: string;
   fields: ReportField[];
 }
 
-interface ReportField {
+export interface ReportField {
   name: string;
   label: string;
   type: 'date' | 'select' | 'checkbox' | 'text';

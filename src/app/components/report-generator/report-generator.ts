@@ -2,21 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-
-interface ReportType {
-  id: string;
-  title: string;
-  description: string;
-  fields: ReportField[];
-}
-
-interface ReportField {
-  name: string;
-  label: string;
-  type: 'date' | 'select' | 'checkbox' | 'text';
-  options?: { value: string; label: string }[];
-  required?: boolean;
-}
+import { ReportType, ReportField } from '../../models/Reports/report';
+import { ReportTypeId } from '../../models/Reports/ReportsResponseDTO';
+import { Report } from '../../services/report-services';
 
 @Component({
   selector: 'app-report-generator',
@@ -24,11 +12,12 @@ interface ReportField {
   templateUrl: './report-generator.html',
   styleUrl: './report-generator.css',
 })
+
 export class ReportGenerator implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-
+  private reportService = inject(Report);
   // Inicialización inmediata para evitar NG01052
   form: FormGroup = new FormGroup({
     format: new FormControl('pdf')
@@ -135,18 +124,21 @@ export class ReportGenerator implements OnInit {
   }
 
   generateReport() {
-    if (this.form.invalid) return;
-    this.isGenerating = true;
-    const reportData = {
-      type: this.reportConfig?.id,
-      ...this.form.value
-    };
-    console.log('Generando reporte:', reportData);
-    setTimeout(() => {
-      this.isGenerating = false;
-      alert('¡Reporte generado! (simulación)');
-    }, 2000);
-  }
+  if (this.form.invalid) return;
+  this.isGenerating = true;
+
+  this.reportService.generateReport(this.reportConfig!.id as ReportTypeId, this.form.value)
+    .subscribe({
+      next: (response) => {
+        this.reportService.downloadFile(response, `${this.reportConfig!.id}.${this.form.value.format === 'pdf' ? 'pdf' : 'xlsx'}`);
+        this.isGenerating = false;
+      },
+      error: () => {
+        this.isGenerating = false;
+        // manejar error (toast, alert, etc.)
+      }
+    });
+}
 
   goBack() {
     this.router.navigate(['/reports']);
